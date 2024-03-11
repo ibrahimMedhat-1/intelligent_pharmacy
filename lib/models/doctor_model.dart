@@ -26,7 +26,7 @@ class DoctorModel {
     id = json!['id'];
     name = json['name'];
     phoneNo = json['phoneNo'];
-    address = json['address']['address'];
+    address = json['address']['text'];
     addressLongitude = json['address']['addressLongitude'];
     addressLatitude = json['address']['addressLatitude'];
     speciality = json['speciality'];
@@ -37,7 +37,7 @@ class DoctorModel {
     id = json!['id'];
     name = json['name'];
     phoneNo = json['phoneNo'];
-    address = json['address'];
+    address = json['text'];
     addressLongitude = json['addressLongitude'];
     addressLatitude = json['addressLatitude'];
     speciality = json['speciality'];

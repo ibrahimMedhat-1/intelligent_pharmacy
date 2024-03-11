@@ -24,14 +24,15 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileState> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController bioController = TextEditingController();
-  String specialityValue = 'none';
+  String specialityValue = 'other';
 
   void initialize() {
     nameController.text = Constants.doctorModel!.name!;
     phoneController.text = Constants.doctorModel!.phoneNo!;
     addressController.text = Constants.doctorModel!.address!;
     bioController.text = Constants.doctorModel!.bio!;
-    specialityValue = Constants.doctorModel!.speciality!;
+    specialityValue =
+        Constants.doctorModel!.speciality!.isEmpty ? 'other' : Constants.doctorModel!.speciality!;
   }
 
   File? imageFile;
@@ -82,9 +83,16 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileState> {
 
   void saveData(context) {
     if (imageFile != null) {
-      FirebaseStorage.instance.ref().child('doctors/${Constants.doctorModel!.id}').putFile(imageFile!).then((p0) {
+      FirebaseStorage.instance
+          .ref()
+          .child('doctors/${Constants.doctorModel!.id}')
+          .putFile(imageFile!)
+          .then((p0) {
         p0.ref.getDownloadURL().then((value) {
-          FirebaseFirestore.instance.collection('doctors').doc(Constants.doctorModel!.id).update({'image': value});
+          FirebaseFirestore.instance
+              .collection('doctors')
+              .doc(Constants.doctorModel!.id)
+              .update({'image': value});
         });
       });
     }
@@ -93,7 +101,7 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileState> {
       'name': nameController.text,
       'phoneNo': phoneController.text,
       'address': {
-        'address': addressController.text,
+        'text': addressController.text,
         'addressLongitude': '',
         'addressLatitude': '',
       },
@@ -101,8 +109,10 @@ class DoctorEditProfileCubit extends Cubit<DoctorEditProfileState> {
       'speciality': specialityValue,
     }).then((value) {
       doctorDoc.get().then((value) async {
+        await CacheHelper.removeData(key: CacheKeys.userId);
         await cachingUser(value, CacheKeys.doctorId);
-        Constants.doctorModel = DoctorModel.fromCache(jsonDecode(await CacheHelper.getData(key: CacheKeys.doctorId)));
+        Constants.doctorModel =
+            DoctorModel.fromCache(jsonDecode(await CacheHelper.getData(key: CacheKeys.doctorId)));
         initialize();
         Phoenix.rebirth(context);
       });

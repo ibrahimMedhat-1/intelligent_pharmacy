@@ -22,9 +22,20 @@ class ChatsCubit extends Cubit<ChatsState> {
         .snapshots()
         .listen((value) async {
       doctorsList.clear();
+      String lastMessage = '';
       for (var element in value.docs) {
-        await FirebaseFirestore.instance.collection('doctors').doc(element.id).get().then((value) {
-          doctorsList.add(DoctorModel.fromJson(value.data(), lastMessage: element.data()['lastMessage']));
+        await FirebaseFirestore.instance.collection('doctors').doc(element.id).get().then((value) async {
+          await FirebaseFirestore.instance
+              .collection('doctors')
+              .doc(element.id)
+              .collection('chat')
+              .doc(Constants.userModel!.id)
+              .get()
+              .then((value) {
+            print(value.data());
+            lastMessage = value.data()!['lastMessage'];
+          });
+          doctorsList.add(DoctorModel.fromJson(value.data(), lastMessage: lastMessage));
         });
       }
       emit(GetAllChatsSuccessfully());

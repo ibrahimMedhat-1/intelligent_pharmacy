@@ -15,12 +15,17 @@ class DoctorListCubit extends Cubit<DoctorListState> {
   List<DoctorModel> doctorsList = [];
 
   void changeDropDownItem(value) {
+    print(doctorsList[0].name);
     doctorsList.clear();
     dropDownMenuItemValue = value;
     emit(ChangeDropDownMenuItemValue());
     emit(GetDoctorBySpecialityLoading());
     if (value != 'All') {
-      FirebaseFirestore.instance.collection('doctors').where('speciality', isEqualTo: value).get().then((value) {
+      FirebaseFirestore.instance
+          .collection('doctors')
+          .where('speciality', isEqualTo: value)
+          .get()
+          .then((value) {
         for (var element in value.docs) {
           doctorsList.add(DoctorModel.fromJson(element.data()));
         }
@@ -42,10 +47,11 @@ class DoctorListCubit extends Cubit<DoctorListState> {
     }
   }
 
-  void getAllDoctors() {
+  void getAllDoctors() async {
     emit(GetAllDoctorsLoading());
-    FirebaseFirestore.instance.collection('doctors').get().then((value) {
+    await FirebaseFirestore.instance.collection('doctors').get().then((value) {
       for (var element in value.docs) {
+        print(element.data());
         doctorsList.add(DoctorModel.fromJson(element.data()));
       }
       emit(GetAllDoctorsSuccessfully());

@@ -33,24 +33,30 @@ class DoctorEditProfile extends StatelessWidget {
                             radius: 80,
                             foregroundImage: cubit.imageFile != null
                                 ? FileImage(cubit.imageFile!)
-                                : NetworkImage('https:${Constants.doctorModel!.image ?? ''}') as ImageProvider,
+                                : NetworkImage('https:${Constants.doctorModel!.image ?? ''}')
+                                    as ImageProvider,
                           ),
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          decoration: InputDecoration(hintText: 'name'),
                           controller: cubit.nameController,
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          decoration: InputDecoration(hintText: 'phone'),
+                          keyboardType: TextInputType.phone,
                           controller: cubit.phoneController,
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          decoration: InputDecoration(hintText: 'Address'),
                           controller: cubit.addressController,
                         ),
                         const SizedBox(height: 10),
                         Row(
                           children: [
+                            const Text('Speciality'),
                             Expanded(
                               child: DropdownButton(
                                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -81,6 +87,7 @@ class DoctorEditProfile extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
+                          decoration: InputDecoration(hintText: 'bio'),
                           controller: cubit.bioController,
                         ),
                       ],
