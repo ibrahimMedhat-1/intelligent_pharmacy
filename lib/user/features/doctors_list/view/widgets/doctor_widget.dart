@@ -50,7 +50,7 @@ class DoctorListWidget extends StatelessWidget {
                       child: CachedNetworkImage(
                         fit: BoxFit.fill,
                         width: double.infinity,
-                        imageUrl: doctors[index].image!,
+                        imageUrl: doctors[index].image ?? '',
                         errorWidget: (context, url, error) => const Icon(
                           Icons.error,
                           color: Colors.red,
@@ -66,19 +66,19 @@ class DoctorListWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            doctors[index].name!,
+                            doctors[index].name ?? '',
                             style: Theme.of(context).textTheme.titleLarge!.copyWith(height: 2),
                           ),
                           Text(
-                            doctors[index].phoneNo!,
+                            doctors[index].phoneNo ?? '',
                             style: Theme.of(context).textTheme.titleMedium!.copyWith(height: 2),
                           ),
                           Text(
-                            doctors[index].address!,
+                            doctors[index].address ?? '',
                             style: Theme.of(context).textTheme.titleSmall!.copyWith(height: 3),
                           ),
                           Text(
-                            doctors[index].speciality!,
+                            doctors[index].speciality ?? '',
                             style: Theme.of(context).textTheme.titleSmall!.copyWith(height: 3),
                           ),
                         ],

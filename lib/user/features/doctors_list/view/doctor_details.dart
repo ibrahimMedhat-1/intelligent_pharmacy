@@ -23,14 +23,14 @@ class DoctorDetails extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SafeArea(child: TopImageWidget(tag: doctorModel.id!, image: doctorModel.image!)),
+            SafeArea(child: TopImageWidget(tag: doctorModel.id!, image: doctorModel.image ?? '')),
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      doctorModel.name!,
+                      doctorModel.name ?? '',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     InkWell(
@@ -38,7 +38,7 @@ class DoctorDetails extends StatelessWidget {
                         await launchUrl(Uri.parse('tel://${doctorModel.phoneNo}'));
                       },
                       child: Text(
-                        doctorModel.phoneNo!,
+                        doctorModel.phoneNo ?? '',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
@@ -54,7 +54,7 @@ class DoctorDetails extends StatelessWidget {
                         );
                       },
                       child: Text(
-                        doctorModel.address!,
+                        doctorModel.address ?? '',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),
@@ -63,7 +63,7 @@ class DoctorDetails extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(),
                     ),
                     Text(
-                      doctorModel.speciality!,
+                      doctorModel.speciality ?? '',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Text(
@@ -80,7 +80,7 @@ class DoctorDetails extends StatelessWidget {
                               child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Text(
-                              doctorModel.bio!,
+                              doctorModel.bio ?? '',
                               style: const TextStyle(
                                 fontSize: 20,
                               ),
@@ -103,7 +103,7 @@ class DoctorDetails extends StatelessWidget {
                                 blurRadius: 3,
                               ),
                             ]),
-                        child: Text(doctorModel.bio!),
+                        child: Text(doctorModel.bio ?? ''),
                       ),
                     ),
                   ],
