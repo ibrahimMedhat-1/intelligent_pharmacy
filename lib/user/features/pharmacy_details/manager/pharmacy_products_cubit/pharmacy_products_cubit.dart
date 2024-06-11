@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intelligent_pharmacy/models/pharmacy_model.dart';
 import 'package:intelligent_pharmacy/shared/toast.dart';
 
 import '../../../../../models/product_model.dart';
@@ -16,6 +17,9 @@ class PharmacyProductsCubit extends Cubit<PharmacyProductsState> {
   List<ProductsModel> searchProductsList = [];
   String dropDownMenuItemValue = 'Medicine';
   TextEditingController searchController = TextEditingController();
+  void setDropDownValue(PharmacyModel pharmacyModel) {
+    dropDownMenuItemValue = pharmacyModel.categories?[0].title ?? '';
+  }
 
   void getSimilarProducts(ProductsModel productsModel) {
     emit(GetSimilarProductsLoading());
@@ -46,7 +50,6 @@ class PharmacyProductsCubit extends Cubit<PharmacyProductsState> {
     dropDownMenuItemValue = category;
     emit(ChangeDropDownMenuItemValue());
     if (category != 'All') {
-      print(pharmacyId);
       emit(CategoryFilterInAllProductsLoading());
       FirebaseFirestore.instance
           .collection('pharmacies')
@@ -58,8 +61,6 @@ class PharmacyProductsCubit extends Cubit<PharmacyProductsState> {
         for (var element in value.docs) {
           categoryFilterProducts.add(ProductsModel.fromJson(element.data()));
         }
-        print(value.docs);
-        print(category);
         emit(CategoryFilterInAllProductsSuccessfully());
       }).catchError((onError) {
         emit(CategoryFilterInAllProductsError());

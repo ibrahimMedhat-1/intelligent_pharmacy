@@ -15,7 +15,6 @@ class DoctorListCubit extends Cubit<DoctorListState> {
   List<DoctorModel> doctorsList = [];
 
   void changeDropDownItem(value) {
-    print(doctorsList[0].name);
     doctorsList.clear();
     dropDownMenuItemValue = value;
     emit(ChangeDropDownMenuItemValue());

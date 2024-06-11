@@ -17,7 +17,7 @@ class PharmacyProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PharmacyProductsCubit(),
+      create: (context) => PharmacyProductsCubit()..setDropDownValue(pharmacyModel),
       child: BlocConsumer<PharmacyProductsCubit, PharmacyProductsState>(
         listener: (context, state) {},
         builder: (context, state) {
