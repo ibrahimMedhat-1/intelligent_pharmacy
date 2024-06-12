@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:intelligent_pharmacy/authentication/view/login_page.dart';
 import 'package:intelligent_pharmacy/doctor/layout/view/doctor_layout.dart';
@@ -21,6 +22,7 @@ import 'models/user_model.dart';
 void main() async {
   Bloc.observer = MyBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
+  Gemini.init(apiKey: 'AIzaSyAyq8J9URJd5YiOE02tS8bgnDPYwOrNr-I');
   await Future.wait([
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     CacheHelper.init(),
@@ -29,7 +31,8 @@ void main() async {
   if ((await CacheHelper.getData(key: CacheKeys.userId)) != null) {
     Constants.userModel = UserModel.fromJson(jsonDecode(await CacheHelper.getData(key: CacheKeys.userId)));
   } else if ((await CacheHelper.getData(key: CacheKeys.doctorId)) != null) {
-    Constants.doctorModel = DoctorModel.fromCache(jsonDecode(await CacheHelper.getData(key: CacheKeys.doctorId)));
+    Constants.doctorModel =
+        DoctorModel.fromCache(jsonDecode(await CacheHelper.getData(key: CacheKeys.doctorId)));
   }
   runApp(Phoenix(child: const MyApp()));
 }

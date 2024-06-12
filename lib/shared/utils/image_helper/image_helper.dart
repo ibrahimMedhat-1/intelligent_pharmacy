@@ -30,8 +30,9 @@ class ImageHelper {
     required XFile file,
     CropStyle cropStyle = CropStyle.rectangle,
   }) async =>
-      await _imageCropper.cropImage(sourcePath: file.path, cropStyle: cropStyle, uiSettings: [
+      await _imageCropper.cropImage(sourcePath: file.path, uiSettings: [
         AndroidUiSettings(
+          cropStyle: cropStyle,
           initAspectRatio: CropAspectRatioPreset.original,
         )
       ]);
