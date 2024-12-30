@@ -1,4 +1,3 @@
-import 'package:credit_card_scanner/credit_card_scanner.dart';
 import 'package:flutter/material.dart';
 
 class PaymentPage extends StatelessWidget {
@@ -29,14 +28,14 @@ class PaymentPage extends StatelessWidget {
                     suffixIcon: IconButton(
                       onPressed: () async {
                         // Navigator.push(context, MaterialPageRoute(builder: (builder) => CardScannerPage()));
-                        await CardScanner.scanCard().then((value) {
-                          // Access the scanned card information
-                          print(value!.cardNumber);
-                          print(value.expiryDate);
-                          print(value.cardHolderName);
-                        }).catchError((onError) {
-                          print('==============$onError');
-                        });
+                        // await CardScanner.scanCard().then((value) {
+                        //   // Access the scanned card information
+                        //   print(value!.cardNumber);
+                        //   print(value.expiryDate);
+                        //   print(value.cardHolderName);
+                        // }).catchError((onError) {
+                        //   print('==============$onError');
+                        // });
                       },
                       icon: const Icon(Icons.document_scanner_outlined),
                     )),

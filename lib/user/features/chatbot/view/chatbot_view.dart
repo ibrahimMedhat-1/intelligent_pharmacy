@@ -78,14 +78,14 @@ class _ChatBotPage extends State<ChatBotPage> {
         if (lastMessage != null && lastMessage.user == geminiUser) {
           lastMessage = messages.removeAt(0);
           String response =
-              event.content?.parts?.fold("", (previous, current) => "$previous ${current.text}") ?? "";
+              event.content?.parts?.fold("", (previous, current) => "$previous ${current}") ?? "";
           lastMessage.text += response;
           setState(() {
             messages = [lastMessage!, ...messages];
           });
         } else {
           String response =
-              event.content?.parts?.fold("", (previous, current) => "$previous ${current.text}") ?? "";
+              event.content?.parts?.fold("", (previous, current) => "$previous ${current}") ?? "";
           ChatMessage message = ChatMessage(user: geminiUser, createdAt: DateTime.now(), text: response);
           setState(() {
             messages = [message, ...messages];

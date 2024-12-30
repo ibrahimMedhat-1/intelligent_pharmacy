@@ -1,7 +1,9 @@
  plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
+     id "com.android.application"
+     // START: FlutterFire Configuration
+     // END: FlutterFire Configuration
+     id "kotlin-android"
+     id "dev.flutter.flutter-gradle-plugin"
 }
 
 def localProperties = new Properties()
@@ -24,16 +26,16 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.intelligent_pharmacy.intelligent_pharmacy"
-    compileSdkVersion flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    compileSdkVersion 35
+    ndkVersion "25.1.8937393"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_17
     }
 
     sourceSets {
@@ -64,4 +66,5 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+}

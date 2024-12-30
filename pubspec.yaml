@@ -38,7 +38,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   firebase_storage:
-  carousel_slider:
+  carousel_slider_plus:
   url_launcher:
   bloc:
   flutter_bloc:
@@ -47,7 +47,6 @@ dependencies:
   image_picker: ^1.0.4
   insurance_card_scanner:
   permission_handler:
-  credit_card_scanner:
   hive:
   sqflite:
   fluttertoast:
